@@ -1,6 +1,6 @@
 class HelloWorld
   def print
-    'Hello World!'
+    'Find me'
   end
 
   def print_reverse
