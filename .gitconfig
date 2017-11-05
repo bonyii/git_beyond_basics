@@ -1,0 +1,63 @@
+[alias]
+	di = diff
+	diffc = diff --cached
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+	lg = log --graph
+	lup = log @{u}... --left-right --graph --oneline
+	lum = log origin/master... --left-right --graph --oneline
+	mup = merge --ff-only origin/master
+	rum = rebase master@{u}
+	last = log -1 HEAD
+	prlog = log --graph --pretty=format:'%Cred%h%Creset %<(50)%s | %Cgreen%cd -%C(auto)%d%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=default
+	elog = log --graph --branches --remotes --tags --oneline --decorate --left-right
+	page = !"for branch in `git branch -r | awk '{print $1}'`; do echo `git log -1 $branch --pretty=format:"%at:%%$branch%%%cr%%%cn%n"`;done | column -t -s'%' | sort -nr | cut -d ':' -f 2"
+	rollback = !"git diff origin/master.. --name-only -- db/migrate | sed 's/db\\/migrate\\///g' | xargs -I% rake db:migrate :D own VERSION=%"
+	w = whatchanged
+	sta = stash
+	llog = log --date=local
+	flog = log --pretty=fuller --decorate
+	lga = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lol = log --graph --decorate --oneline
+	lola = log --graph --decorate --oneline --all
+	blog = log origin/master... --left-right
+	ds = diff --staged
+	fixup = commit --fixup
+	squash = commit --squash
+	unstage = reset HEAD
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+	interactive = auto
+	ui = auto
+[merge]
+	tool = kdiff3
+	ff = only
+[push]
+	default = simple
+[init]
+	templatedir = ~/.git_template
+[core]
+	pager = less -FXRS -x2
+	excludesfile = /Users/developer/.gitignore_global
+[apply]
+	whitespace = nowarn
+[branch]
+	autosetupmerge = true
+[rebase]
+	autosquash = true
+[format]
+	pretty = format:"%C(yellow)%<(12)%cd%Creset %<(50)%s | %C(auto)%h%Creset%C(auto)%d%Creset | %Cgreen%an%Creset"
+[user]
+	name = Developer
+	initials = bf
+	email = dev@example.com
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
